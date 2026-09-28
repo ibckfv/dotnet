@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: kpv_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1469
+      POSTGRES_DB: kpv_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kpv_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d logistics_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  kpv_network:
+    driver: bridge
