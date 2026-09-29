@@ -13,7 +13,7 @@ services:
     networks:
       - kpv_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d logistics_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d kpv_db"]
       interval: 5s
       timeout: 5s
       retries: 5
