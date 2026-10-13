@@ -18,6 +18,34 @@ services:
       timeout: 5s
       retries: 5
 
+  registration:
+    build:
+      context: ./FifthHomework/Registration
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__Postgres: Host=postgres;Port=5432;Database=kpv_db;Username=postgres;Password=1469
+    ports:
+      - "5001:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - kpv_network
+
+  approval:
+    build:
+      context: ./SixthHomework/Approval
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__Postgres: Host=postgres;Port=5432;Database=kpv_db;Username=postgres;Password=1469
+    ports:
+      - "5002:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - kpv_network
+
 volumes:
   postgres_data:
     driver: local
